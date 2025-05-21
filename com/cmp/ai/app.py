@@ -14,6 +14,7 @@ from services import (
 
 app = Flask(__name__)
 api = Api(app)
+# 移除 validate 参数
 swagger = Swagger(app, template=swagger_template, config=swagger_config)
 
 class TutorialList(Resource):
@@ -186,17 +187,22 @@ class PublishedTutorials(Resource):
 
 class Popular(Resource):
     @swag_from({
-        'tags': ['popular', 'get'],
+        'tags': ['Popular', 'get'],
         'responses': {
             200: {
-                'description': 'Retrieve a Tutorial by Id',
+                'description': 'Calculate popularity score for a city',
                 'schema': {
                     'type': 'object',
-                    'properties': tutorial_fields
+                    'properties': {
+                        'score': {
+                            'type': 'number',
+                            'description': 'Popularity score based on city name length'
+                        }
+                    }
                 }
             },
             404: {
-                'description': 'Ppular not found'
+                'description': 'Popular not found'
             },
             500: {
                 'description': 'Internal Server Error'
@@ -204,10 +210,14 @@ class Popular(Resource):
         }
     })
     def get(self, city):
-        print(city)
-        if True:
-            return math.exp(len(city)), 200
-        return '', 404
+        try:
+            if not city or not isinstance(city, str):
+                return {'error': 'City name is required'}, 400
+            # 示例逻辑：基于城市名称长度计算分数
+            score = math.exp(len(city))
+            return {'score': score}, 200
+        except Exception as e:
+            return {'error': str(e)}, 500
 
 api.add_resource(TutorialList, '/api/tutorials')
 api.add_resource(Tutorial, '/api/tutorials/<int:id>')
