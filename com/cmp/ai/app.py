@@ -184,10 +184,37 @@ class PublishedTutorials(Resource):
         return published_tutorials, 200
 
 
+class Popular(Resource):
+    @swag_from({
+        'tags': ['popular', 'get'],
+        'responses': {
+            200: {
+                'description': 'Retrieve a Tutorial by Id',
+                'schema': {
+                    'type': 'object',
+                    'properties': tutorial_fields
+                }
+            },
+            404: {
+                'description': 'Ppular not found'
+            },
+            500: {
+                'description': 'Internal Server Error'
+            }
+        }
+    })
+    def get(self, city):
+        print(city)
+        if True:
+            return math.exp(len(city)), 200
+        return '', 404
+
 api.add_resource(TutorialList, '/api/tutorials')
 api.add_resource(Tutorial, '/api/tutorials/<int:id>')
 api.add_resource(DeleteAllTutorials, '/api/tutorials/delete-all')
 api.add_resource(PublishedTutorials, '/api/tutorials/published')
+api.add_resource(Popular, '/api/popular/<string:city>')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=9980)
