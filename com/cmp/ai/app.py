@@ -6,8 +6,6 @@ from flasgger.utils import swag_from
 from com.cmp.config.swagger import swagger_template, swagger_config
 import random,math
 
-
-
 from services import (
     create_tutorial, get_all_tutorials, get_tutorial_by_id,
     update_tutorial, delete_tutorial, delete_all_tutorials,
@@ -16,7 +14,7 @@ from services import (
 
 app = Flask(__name__)
 api = Api(app)
-swagger = Swagger(app)
+swagger = Swagger(app, template=swagger_template, config=swagger_config)
 
 class TutorialList(Resource):
     @swag_from({
@@ -186,56 +184,10 @@ class PublishedTutorials(Resource):
         return published_tutorials, 200
 
 
-# class CityPopular(Resource):
-#     @swag_from({
-#         'tags': ['popular', 'get'],
-#         'parameters': [
-#             {
-#                 'name': 'city',
-#                 'in': 'path',
-#                 'type': 'string',
-#                 'required': True,
-#                 'description': 'The name of the city'
-#             }
-#         ],
-#         'responses': {
-#             200: {
-#                 'description': 'The popularity score of the city',
-#                 'schema': {
-#                     'type': 'number',
-#                     'format': 'float'
-#                 }
-#             },
-#             404: {
-#                 'description': 'City not found'
-#             },
-#             500: {
-#                 'description': 'Internal server error'
-#             }
-#         }
-#     })
-#     def get_city(city):
-#         try:
-#             # 修正随机数生成，使用random模块
-#             random_num = random.random() * 10.1
-#             result = random_num + math.exp(len(city))
-#             return jsonify(result), 200
-#         except Exception as e:
-#             return jsonify({"error": str(e)}), 500
-
-
-
 api.add_resource(TutorialList, '/api/tutorials')
 api.add_resource(Tutorial, '/api/tutorials/<int:id>')
-api.add_resource(DeleteAllTutorials, '/api/tutorials')
+api.add_resource(DeleteAllTutorials, '/api/tutorials/delete-all')
 api.add_resource(PublishedTutorials, '/api/tutorials/published')
-# api.add_resource(CityPopular, '/api/popular/get/<city>')
-
-app = Flask(__name__)
-api = Api(app)
-# 移除 validate 参数
-swagger = Swagger(app, template=swagger_template, config=swagger_config)
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=9980)
