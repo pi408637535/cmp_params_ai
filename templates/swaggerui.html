@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Swagger UI</title>
+  <link href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.5.0/swagger-ui.css" rel="stylesheet">
+  <style>
+    html {
+      box-sizing: border-box;
+      overflow: -moz-scrollbars-vertical;
+      overflow-y: scroll;
+    }
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+    body {
+      margin: 0;
+      background: #fafafa;
+    }
+    .swagger-ui .topbar {
+      background-color: #6366F1;
+      border-bottom: 3px solid #4F46E5;
+    }
+    .swagger-ui .topbar .download-url-wrapper .select-label select {
+      border: 2px solid #4F46E5;
+    }
+    .swagger-ui .btn.authorize {
+      color: #4F46E5;
+      border-color: #4F46E5;
+    }
+    .swagger-ui .btn.authorize svg {
+      fill: #4F46E5;
+    }
+    .swagger-ui .btn.authorize:hover {
+      background-color: #EEF2FF;
+    }
+    .swagger-ui .opblock.opblock-post .opblock-summary-method {
+      background: #10B981;
+    }
+    .swagger-ui .opblock.opblock-get .opblock-summary-method {
+      background: #3B82F6;
+    }
+    .swagger-ui .opblock.opblock-put .opblock-summary-method {
+      background: #F59E0B;
+    }
+    .swagger-ui .opblock.opblock-delete .opblock-summary-method {
+      background: #EF4444;
+    }
+  </style>
+</head>
+<body>
+<div id="swagger-ui"></div>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.5.0/swagger-ui-bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4.5.0/swagger-ui-standalone-preset.js"></script>
+<script>
+  window.onload = function() {
+    // 构建Swagger UI
+    const ui = SwaggerUIBundle({
