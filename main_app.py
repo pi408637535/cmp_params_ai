@@ -79,17 +79,18 @@ class Popular(Resource):
     })
     def get(self, city):
         try:
+            print(city)
             if not city or not isinstance(city, str):
-                return {'error': 'City name is required'}, 400
+                return 'error', 400
             # 示例逻辑：基于城市名称长度计算分数
             score = math.exp(len(city))
-            return {'score': score}, 200
+            return score, 200
         except Exception as e:
-            return {'error': str(e)}, 500
+            return 'error', 500
 
 api.add_resource(Welcome, '/')
 api.add_resource(Items, '/items')
-api.add_resource(Popular, '/api/popular/<string:city>')
+api.add_resource(Popular, '/popular/get/<string:city>')
 
 if __name__ == '__main__':
     app.run(debug=True, port=9980)
