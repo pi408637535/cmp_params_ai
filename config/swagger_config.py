@@ -10,6 +10,11 @@ template = {
         "http",
         "https"
     ],
+    "servers": [
+        {
+            "url": "http://10.68.37.164:9980"
+        }
+    ],
     "paths": {
         "/popular/get/{city}": {
             "get": {

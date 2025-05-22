@@ -34,4 +34,4 @@ class Popular(Resource):
 api.add_resource(Popular, '/popular/get/<string:city>')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=9980)
