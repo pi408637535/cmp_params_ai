@@ -31,6 +31,7 @@ class Popular(Resource):
         except Exception as e:
             return 'error', 500
 
+
 api.add_resource(Popular, '/popular/get/<string:city>')
 
 if __name__ == "__main__":
